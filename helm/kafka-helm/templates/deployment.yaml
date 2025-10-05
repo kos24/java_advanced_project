@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Description }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Chart.Description }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Description }}
+    spec:
+      serviceAccountName: spring-cloud-kubernetes
+      containers:
+        - name: {{ .Chart.Description }}
+          image: confluentinc/cp-kafka:7.5.6
+          ports:
+            - containerPort: {{ .Values.ports.inside}}
+            - containerPort: {{ .Values.ports.outside}}
+          env:
+            - name: KAFKA_BROKER_ID
+              value: "1"
+            - name: KAFKA_ZOOKEEPER_CONNECT
+              value: zookeeper:2181
+            - name: KAFKA_ADVERTISED_LISTENERS
+              value: "PLAINTEXT://kafka-broker:9092"
+            - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+              value : "1"
+            - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+              value: PLAINTEXT:PLAINTEXT
+            - name: KAFKA_JMX_PORT
+              value: "9997"
+            - name: KAFKA_JMX_HOSTNAME
+              value: kafka-broker
+              #  KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+              #  KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1

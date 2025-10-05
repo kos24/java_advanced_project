@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2025-10-03--building_object-schema" author="kostya.aus@gmail.com">
+        <sql>
+            CREATE SCHEMA IF NOT EXISTS building_object;
+        </sql>
+    </changeSet>
+
+    <changeSet id="2025-10-03--building_object-table" author="kostya.aus@gmail.com">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="BUILDING_OBJECT" schemaName="BUILDING_OBJECT"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="BUILDING_OBJECT" tableName="BUILDING_OBJECT" remarks="Объекты недвижимости">
+            <column name="ID" type="uuid" remarks="Уникальный идентификатор объекта недвижимости"
+                    defaultValue="gen_random_uuid()">
+                <constraints primaryKey="true" primaryKeyName="PK_BUILDING_OBJECT_ID"/>
+            </column>
+            <column name="NAME" type="varchar(100)" remarks="Наименование объекта недвижимости"/>
+            <column name="ADDRESS" type="varchar(255)" remarks="Адрес объекта недвижимости"/>
+            <column name="OBJECT_TYPE_ID" type="uuid" remarks="Тип объекта недвижимости"/>
+            <column name="AREA" type="number(10,2)" remarks="Площадь объекта недвижимости"/>
+            <column name="PRICE" type="number(15,2)" remarks="Стоимость объекта недвижимости"/>
+            <column name="CONTRACT_ID" type="uuid" remarks="Уникальный идентификатор договора"/>
+            <column name="CLIENT_ID" type="uuid" remarks="Уникальный идентификатор клиента"/>
+            <column name="SALE_STATUS" type="uuid" remarks="Статус продажи объекта"/>
+            <column name="DELETED" type="boolean"/>
+            <column name="CREATED_AT" type="TIMESTAMP WITH TIME ZONE" defaultValue="now()"/>
+            <column name="UPDATED_AT" type="TIMESTAMP WITH TIME ZONE" defaultValue="now()"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

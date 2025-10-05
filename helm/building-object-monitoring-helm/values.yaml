@@ -1,0 +1,32 @@
+image:
+  repository: localhost:5001/building_object_monitoring_image
+  tag: latest
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+resources:
+  requests:
+    cpu: 100m
+    memory: 100Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+
+ports:
+  name: http
+  containerPort: 8080
+  protocol: TCP
+  targetPort: 8080
+  appProtocol: http
+
+service:
+  type: ClusterIP
+  port: 8080
+
+db:
+  name: postgres
+  host: postgres-db-svc
+  port: 5432
+  username: postgres
+  password: password
+  schema: building_object_monitoring

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-db-pv
+  labels:
+    app: postgres-db
+  finalizers: [] # отключаем pv-protection
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete # при удалении PVC PV удаляется
+  hostPath:
+    path: /tmp/k8s/postgres-data2 # чистая директория для тестов

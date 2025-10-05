@@ -1,0 +1,9 @@
+apiVersion: v1
+name: building-object-monitoring-service
+description: Building Object Monitoring service
+version: 0.0.2
+appVersion: "1.0.1"
+
+maintainers:
+  - name: Rebrin Konstantin
+

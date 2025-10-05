@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2025-10-03--building_object_monitoring-schema" author="kostya.aus@gmail.com">
+        <sql>
+            CREATE SCHEMA IF NOT EXISTS building_object_monitoring;
+        </sql>
+    </changeSet>
+
+    <changeSet id="2025-10-03--monitoring-table" author="kostya.aus@gmail.com">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="MONITORING" schemaName="BUILDING_OBJECT_MONITORING"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="BUILDING_OBJECT_MONITORING" tableName="MONITORING" remarks="Таблица мониторинга объектов недвижимости">
+            <column name="ID" type="uuid" remarks="Уникальный идентификатор мониторинга" defaultValue="gen_random_uuid()">
+                <constraints primaryKey="true" primaryKeyName="PK_MONITORING_ID"/>
+            </column>
+            <column name="BUILDING_OBJECT_ID" type="uuid" remarks="Идентификатор объекта недвижимости"/>
+            <column name="CONTRACT_ID" type="uuid" remarks="Идентификатор договора"/>
+            <column name="CLIENT_ID" type="uuid" remarks="Идентификатор клиента"/>
+            <column name="SALE_STATUS" type="uuid" remarks="Статус продажи объекта недвижимости"/>
+            <column name="CLIENT_RISK_SCORE" type="number" remarks="Рейтинговая оценка риска"/>
+            <column name="PLAN_MONITORING_DATE" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="MONITORING_STATUS" type="uuid" remarks="Статус мониторинга"/>
+            <column name="CREATED_AT" type="TIMESTAMP WITH TIME ZONE" defaultValue="now()"/>
+            <column name="UPDATED_AT" type="TIMESTAMP WITH TIME ZONE" defaultValue="now()"/>
+        </createTable>
+
+        <createIndex tableName="MONITORING" indexName="IDX_CONTRACT" unique="false">
+            <column name="contract_id"/>
+        </createIndex>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,19 @@
+replicaCount: 1
+resources:
+  requests:
+    cpu: 100m
+    memory: 100Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+
+ports:
+  protocol: TCP
+  inside: 9092
+  outside: 9093
+  jmx: 9997
+
+service:
+  type: ClusterIP
+  port: 8080
+

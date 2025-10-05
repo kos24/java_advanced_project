@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-prometheusyml-configmap
+data:
+  prometheus.yml: |-
+    global:
+      scrape_interval: 15s
+      scrape_timeout: 10s
+      evaluation_interval: 15s
+    scrape_configs:
+      - job_name: "discovery"
+        metrics_path: /actuator/prometheus
+        static_configs:
+          - targets: [ discovery-service:8761 ]
+      - job_name: "gateway"
+        metrics_path: /actuator/prometheus
+        static_configs:
+          - targets: [ gateway-service:8080 ]
+      - job_name: "client"
+        metrics_path: /actuator/prometheus
+        static_configs:
+          - targets: [ client-service:8080 ]
+      - job_name: "contract"
+        metrics_path: /actuator/prometheus
+        static_configs:
+          - targets: [ contract-service:8080 ]
+      - job_name: "dictionary"
+        metrics_path: /actuator/prometheus
+        static_configs:
+          - targets: [ dictionary-service-grpc:8080 ]
+      - job_name: "building-object"
+        metrics_path: /actuator/prometheus
+        static_configs:
+          - targets: [ building-object-service:8080 ]
+      - job_name: "data-generator"
+        metrics_path: /actuator/prometheus
+        static_configs:
+          - targets: [ data-generator-service:8080 ]
+      - job_name: "building-object-monitoring"
+        metrics_path: /actuator/prometheus
+        static_configs:
+          - targets: [ building-object-monitoring-service:8080 ]

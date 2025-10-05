@@ -1,0 +1,13 @@
+﻿ID;CATEGORY_ID;CODE;NAME;DELETED
+8436fbd3-da9b-4288-b72b-93a79e7593c5;;Category_Category;Категория справочников;0
+f3b9085f-ea43-4902-9edc-2ec3ed644210;8436fbd3-da9b-4288-b72b-93a79e7593c5;Category_Contract_Type;Категория типов договора;0
+9e418a78-acc8-4664-8149-77b07a08a0f9;f3b9085f-ea43-4902-9edc-2ec3ed644210;Contract_Type_Construction_Loan;Строительный кредит;0
+9e418a78-acc8-4664-8149-77b07a08a0d8;8436fbd3-da9b-4288-b72b-93a79e7593c5;Category_Building_Object_Type;Категория типов объектов недвижимости;0
+4397fb0c-7bcf-4788-accd-1a0c06848f6e;9e418a78-acc8-4664-8149-77b07a08a0d8;Building_Object_Type_Appartment;Аппартаменты;0
+e8664403-4db3-49ab-abf0-244f24ba32b5;9e418a78-acc8-4664-8149-77b07a08a0d8;Building_Object_Type_Cottage;Коттедж;0
+e8664403-4db3-49ab-abf0-244f24ba32c7;8436fbd3-da9b-4288-b72b-93a79e7593c5;Category_Building_Object_Status;Категория статусов объектов недвижимости;0
+57a2e7eb-a661-443b-9db2-09800fd547d9;e8664403-4db3-49ab-abf0-244f24ba32c7;Building_Object_Status_Not_Sold;Не продан;0
+734e9fd1-3445-46f4-b187-4248646ba048;e8664403-4db3-49ab-abf0-244f24ba32c7;Building_Object_Status_Sold;Продан;0
+f11eba4f-3af3-4c8e-a77c-314c953f9498;8436fbd3-da9b-4288-b72b-93a79e7593c5;Category_Monitoring_Status;Категория статусов мониторинга;0
+045431f8-4e5e-43ff-a856-92713e89606b;f11eba4f-3af3-4c8e-a77c-314c953f9498;Category_Monitoring_In_Process;В работе;0
+3d98b6bb-632d-49d3-a011-bb849634be82;f11eba4f-3af3-4c8e-a77c-314c953f9498;Category_Monitoring_Done;Пройден;0

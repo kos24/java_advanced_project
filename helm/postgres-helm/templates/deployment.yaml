@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-db
+  labels:
+    app: postgres-db
+spec:
+  selector:
+    matchLabels:
+      app: postgres-db
+  template:
+    metadata:
+      labels:
+        app: postgres-db
+    spec:
+      serviceAccountName: spring-cloud-kubernetes
+      containers:
+        - name: postgres-db
+          image: postgres:16
+          lifecycle:
+            postStart:
+              exec:
+                command: [ "/bin/bash","-c",
+                           "sleep 2 && PGPASSWORD=password psql $POSTGRES_DB -U postgres -c \'create schema if not exists dictionary;
+                                                                                               create schema if not exists client;
+                                                                                               create schema if not exists contract;
+                                                                                               create schema if not exists building_object;
+                                                                                               create schema if not exists building_object_monitoring;\'" ]
+          env:
+            - name: POSTGRES_DB
+              value: {{ .Values.db.name }}
+            - name: POSTGRES_USER
+              value: {{ .Values.db.username }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Chart.Name }}-secret
+                  key: password
+          ports:
+            - containerPort: {{ .Values.ports.containerPort }}
+              name: {{ .Values.ports.name}}
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresql-persistent-storage
+      volumes:
+        - name: postgresql-persistent-storage
+          persistentVolumeClaim:
+            claimName: postgres-db-pvc

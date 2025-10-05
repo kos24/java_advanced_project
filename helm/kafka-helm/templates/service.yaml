@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Description }}
+  labels:
+    name: {{ .Chart.Description }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: {{ quote .Values.ports.inside }}
+      port: {{ .Values.ports.inside }}
+      targetPort: {{ .Values.ports.inside }}
+      protocol: {{ .Values.ports.protocol }}
+    - name: {{ quote .Values.ports.outside }}
+      port: {{ .Values.ports.outside }}
+      targetPort: {{ .Values.ports.outside }}
+      protocol: {{ .Values.ports.protocol }}
+    - name: {{ quote .Values.ports.jmx }}
+      port: {{ .Values.ports.jmx }}
+      targetPort: {{ .Values.ports.jmx }}
+      protocol: {{ .Values.ports.protocol }}
+  selector:
+    app: {{ .Chart.Description }}

@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      serviceAccountName: spring-cloud-kubernetes
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image }}
+          ports:
+            - containerPort: {{ .Values.ports.containerPort }}
+          env:
+            - name: ZOOKEEPER_CLIENT_PORT
+              value: {{ quote  .Values.ports.containerPort }}
+            - name: ZOOKEEPER_TICK_TIME
+              value: {{ quote  .Values.zookeeper.tick.time }}

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-svc
+spec:
+  ports:
+    - name:  {{ quote .Values.ports.containerPort }}
+      port:  {{ .Values.ports.containerPort }}
+      targetPort:  {{ .Values.ports.containerPort }}
+  selector:
+    app: prometheus-svc
+  type:  NodePort

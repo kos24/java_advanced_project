@@ -1,0 +1,20 @@
+replicaCount: 1
+resources:
+  requests:
+    cpu: 100m
+    memory: 100Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+
+ports:
+  name: http
+  containerPort: 8080
+  protocol: TCP
+  targetPort: 8080
+  appProtocol: http
+
+service:
+  type: ClusterIP
+  port: 8080
+
